@@ -13,9 +13,10 @@ public class Player : MonoBehaviour
     public void ChangeHealth(float value)
     {
         _targetHealth = _health + value;
+
         StartCoroutine(_healthBar.ChangeHealthBar(_targetHealth));
+
         _health = _targetHealth;
-        Debug.Log(_health);
     }
 
     public float OutputHealth()
