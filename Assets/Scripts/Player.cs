@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     public event UnityAction<float> HealthChanged;
+
     private float _health = 50;
     private float _maxHealth = 100;
     private float _minHealth = 0;
