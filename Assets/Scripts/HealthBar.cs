@@ -10,7 +10,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Player _player;
 
     private Slider _slider;
-    private float _duration = 0.08f;
+    private float _duration = 4;
     private Coroutine _preventStackCoroutine;
 
     private void Start()
@@ -26,20 +26,20 @@ public class HealthBar : MonoBehaviour
         _player.HealthChanged -= ChangeHealthBar;
     }
 
-    public IEnumerator SlowlyChange(float health)
-    {
-        while (_slider.value != health)
-        {
-            _slider.value = Mathf.MoveTowards(_slider.value, health, _duration);
-            yield return null;
-        }
-    }
-
     public void ChangeHealthBar(float health) 
     {
         if(_preventStackCoroutine != null)
             StopCoroutine(_preventStackCoroutine);
         
         _preventStackCoroutine = StartCoroutine(SlowlyChange(health));
+    }
+
+    private IEnumerator SlowlyChange(float health)
+    {
+        while (_slider.value != health)
+        {
+            _slider.value = Mathf.MoveTowards(_slider.value, health, _duration * Time.deltaTime);
+            yield return null;
+        }
     }
 }
